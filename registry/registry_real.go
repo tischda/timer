@@ -32,7 +32,7 @@ func (RealRegistry) SetQword(path RegPath, valueName string, value uint64) error
 
 	return regSetValueEx(
 		handle,
-		syscall.StringToUTF16Ptr(valueName),
+		StringToUTF16Ptr(valueName),
 		0,
 		syscall.REG_QWORD,
 		(*byte)(unsafe.Pointer(&value)),
@@ -53,7 +53,7 @@ func (RealRegistry) GetQword(path RegPath, valueName string) (uint64, error) {
 
 	err = syscall.RegQueryValueEx(
 		handle,
-		syscall.StringToUTF16Ptr(valueName),
+		StringToUTF16Ptr(valueName),
 		nil,
 		&vtype,
 		(*byte)(unsafe.Pointer(&value)),
@@ -75,8 +75,8 @@ func (RealRegistry) DeleteValue(path RegPath, valueName string) error {
 	if err != nil {
 		return err
 	}
-	defer syscall.RegCloseKey(handle)                                  //nolint:errcheck
-	return regDeleteValue(handle, syscall.StringToUTF16Ptr(valueName)) //nolint:errcheck
+	defer syscall.RegCloseKey(handle)                          //nolint:errcheck
+	return regDeleteValue(handle, StringToUTF16Ptr(valueName)) //nolint:errcheck
 }
 
 // Creates a key in the Windows registry.
@@ -91,7 +91,7 @@ func (RealRegistry) CreateKey(path RegPath) error {
 
 	return regCreateKeyEx(
 		hKeyTable[path.HKeyIdx],
-		syscall.StringToUTF16Ptr(path.LpSubKey),
+		StringToUTF16Ptr(path.LpSubKey),
 		0,
 		nil,
 		0,
@@ -111,7 +111,7 @@ func (RealRegistry) DeleteKey(path RegPath) error {
 		return err
 	}
 	defer syscall.RegCloseKey(handle) //nolint:errcheck
-	return regDeleteKey(handle, syscall.StringToUTF16Ptr(child))
+	return regDeleteKey(handle, StringToUTF16Ptr(child))
 }
 
 // Enumerates the values for the specified registry key index. The function
@@ -164,7 +164,7 @@ func openKey(path RegPath, desiredAccess uint32) (syscall.Handle, error) {
 	// https://msdn.microsoft.com/en-us/library/windows/desktop/ms724897(v=vs.85).aspx
 	err := syscall.RegOpenKeyEx(
 		hKeyTable[path.HKeyIdx],
-		syscall.StringToUTF16Ptr(path.LpSubKey),
+		StringToUTF16Ptr(path.LpSubKey),
 		0,
 		desiredAccess,
 		&handle)
@@ -177,4 +177,14 @@ func splitPathSubkey(path RegPath) (RegPath, string) {
 	regexp := regexp.MustCompile(`(.*)\\([^\\]+)$`)
 	parts := regexp.FindStringSubmatch(path.LpSubKey)
 	return RegPath{path.HKeyIdx, parts[1]}, parts[2]
+}
+
+// https://golang.org/src/syscall/syscall_windows.go
+// StringToUTF16Ptr is deprecated, here is our own:
+func StringToUTF16Ptr(s string) *uint16 {
+	ptr, err := syscall.UTF16PtrFromString(s)
+	if err != nil {
+		log.Fatalln("String with NULL passed to StringToUTF16Ptr")
+	}
+	return ptr
 }
