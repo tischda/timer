@@ -58,8 +58,8 @@ func (t *Timer) clear(name string) {
 		exitOnError(t.registry.DeleteValue(PATH_TIMERS, name))
 	} else {
 		// don't check errors, keys might not even exist. Try best effort.
-		t.registry.DeleteKey(PATH_TIMERS)
-		t.registry.DeleteKey(PATH_SOFTWARE)
+		t.registry.DeleteKey(PATH_TIMERS)   //nolint:errcheck
+		t.registry.DeleteKey(PATH_SOFTWARE) //nolint:errcheck
 	}
 }
 

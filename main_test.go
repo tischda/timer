@@ -22,7 +22,7 @@ func TestUsage(t *testing.T) {
 	r, w, _ := os.Pipe()
 	cmd.Stderr = w
 	err := cmd.Run()
-	w.Close()
+	w.Close() //nolint:errcheck
 
 	// check return code
 	if e, ok := err.(*exec.ExitError); ok && e.Success() {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"regexp"
 	"strconv"
@@ -77,9 +77,9 @@ func captureOutput(f func()) string {
 	f()
 
 	// reset output again
-	w.Close()
+	w.Close() //nolint:errcheck
 	os.Stdout = old
 
-	captured, _ := ioutil.ReadAll(r)
+	captured, _ := io.ReadAll(r)
 	return string(captured)
 }

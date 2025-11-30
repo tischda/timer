@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package registry
 
@@ -29,7 +28,7 @@ func (RealRegistry) SetQword(path RegPath, valueName string, value uint64) error
 	if err != nil {
 		return err
 	}
-	defer syscall.RegCloseKey(handle)
+	defer syscall.RegCloseKey(handle) //nolint:errcheck
 
 	return regSetValueEx(
 		handle,
@@ -46,7 +45,7 @@ func (RealRegistry) GetQword(path RegPath, valueName string) (uint64, error) {
 	if err != nil {
 		return 0, err
 	}
-	defer syscall.RegCloseKey(handle)
+	defer syscall.RegCloseKey(handle) //nolint:errcheck
 
 	var value uint64
 	n := uint32(8)
@@ -77,7 +76,7 @@ func (RealRegistry) DeleteValue(path RegPath, valueName string) error {
 		return err
 	}
 	defer syscall.RegCloseKey(handle)
-	return regDeleteValue(handle, syscall.StringToUTF16Ptr(valueName))
+	return regDeleteValue(handle, syscall.StringToUTF16Ptr(valueName)) //nolint:errcheck
 }
 
 // Creates a key in the Windows registry.
