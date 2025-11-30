@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.4.0]
+
+* Fix deprecated syscall methods using Call() instead of SyscallN/Syscall9
+* Update build system
+
 ## [v1.3.0] - 23 November 2021
 
 * Improve usage output
