@@ -1,18 +1,16 @@
-// +build windows
+//go:build windows
 
 package main
 
-import "github.com/tischda/gotimer/registry"
+import "github.com/tischda/timer/registry"
 
-// The following variables are compiled for windows only
+const REGISTRY_PATH_SOFTWARE = `SOFTWARE\Tischer`
 
 const shell = "cmd"
 const shellCmdFlag = "/c"
 
-// 'sleep' command available on appveyor but not in Windows
-// TODO: write a sleeper that allows fractional numbers, eg. 0.1
-// cf. http://golang.org/pkg/time/#Sleep
+// using sleep command that comes with git for windows
 const execTestCmd = "sleep 1"
 const execTestRxp = `Total time: 1.\d*s`
 
-var timer Chronometer = &Timer{registry: registry.RealRegistry{}}
+var timer = &Timer{registry: registry.RealRegistry{}}

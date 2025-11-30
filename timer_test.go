@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/tischda/gotimer/registry"
+	"github.com/tischda/timer/registry"
 )
 
 var sut Timer
@@ -53,7 +53,7 @@ func TestList(t *testing.T) {
 	sut.start("t2")
 
 	expected := "[t1 t2]\n"
-	actual := captureOutput(func() { sut.list("") })
+	actual := captureOutput(func() { sut.list() })
 	if actual != expected {
 		t.Errorf("Expected: %q, was: %q", expected, actual)
 	}

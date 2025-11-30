@@ -26,7 +26,7 @@ func (t *mockTimer) clear(name string) {
 	t.clearCalled = true
 }
 
-func (t *mockTimer) list(name string) {
+func (t *mockTimer) list() {
 	t.listCalled = true
 }
 

@@ -1,3 +1,3 @@
-module github.com/tischda/gotimer
+module github.com/tischda/timer
 
 go 1.25

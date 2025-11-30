@@ -9,24 +9,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tischda/gotimer/registry"
+	"github.com/tischda/timer/registry"
 )
 
-var PATH_SOFTWARE = registry.RegPath{HKeyIdx: registry.HKEY_CURRENT_USER, LpSubKey: `SOFTWARE\Tischer`}
-var PATH_TIMERS = registry.RegPath{HKeyIdx: registry.HKEY_CURRENT_USER, LpSubKey: `SOFTWARE\Tischer\timers`}
+var PATH_SOFTWARE = registry.RegPath{HKeyIdx: registry.HKEY_CURRENT_USER, LpSubKey: REGISTRY_PATH_SOFTWARE}
+var PATH_TIMERS = registry.RegPath{HKeyIdx: registry.HKEY_CURRENT_USER, LpSubKey: REGISTRY_PATH_SOFTWARE + "\timers"}
 
 // Timer records time stamps in a registry
 type Timer struct {
 	registry registry.Registry
-}
-
-type Chronometer interface {
-	start(name string)
-	stop(name string)
-	read(name string)
-	clear(name string)
-	list(name string)
-	exec(process string)
 }
 
 // Starts the specified timer by creating a registry key containing
@@ -73,8 +64,7 @@ func (t *Timer) clear(name string) {
 }
 
 // Lists all started timers.
-// TODO: The parameter 'name' is not not used, it's the generic signature required by executeTimerFunc()
-func (t *Timer) list(name string) {
+func (t *Timer) list() {
 	if timers := t.getTimersSorted(); len(timers) > 0 {
 		fmt.Println(timers)
 	} else {
