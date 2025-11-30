@@ -118,8 +118,8 @@ func whenDone() func(format string, args ...interface{}) {
 // Prints error and exit if err != nil
 func exitOnError(err error) {
 	if err != nil {
-		// Windows return funny error messages when accessing the registry
+		// Windows returns funny error messages when accessing the registry
 		// eg. "The system cannot find the file specified." meaning the key
-		log.Fatalln(strings.Replace(err.Error(), "file", "timer", -1))
+		log.Fatalln(strings.ReplaceAll(err.Error(), "file", "timer"))
 	}
 }
