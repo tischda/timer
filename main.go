@@ -81,8 +81,6 @@ EXAMPLES:
 	cmd := flag.Arg(0)
 	name := flag.Arg(1)
 
-	// Note: if flag not specified in first position, it will be ignored.
-	// Example: ./timer start azerty -C ls --> flag '-C' will be ignored
 	if flag.NArg() == 0 || flag.NArg() > 2 {
 		flag.Usage()
 		os.Exit(1)
