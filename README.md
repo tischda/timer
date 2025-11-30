@@ -26,7 +26,7 @@ go install github.com/tischda/timer
 ## Usage
 
 ~~~
-Usage: timer [OPTION] exec task
+Usage: timer [OPTION] exec "task"
        timer [OPTION] COMMAND timer-name
 
  COMMANDS:
@@ -51,20 +51,20 @@ OPTIONS:
 ## Examples
 
 ~~~
-C:\>timer start t1
-C:\>timer read t1
+$ timer start t1
+$ timer read t1
 Elapsed time (t1): 5.9200225s
 
-C:\>timer start t2
-C:\>timer list
+$ timer start t2
+$ timer list
 [t1 t2]
 
-C:\>timer stop t1
+$ timer stop t1
 Elapsed time (t1): 1m30.6471884s
 
-C:\>timer clear
+$ timer clear
 
-C:\>timer -quiet exec "dir /s"
+$ timer -quiet exec "dir /s"
 Total time: 91.2001ms
 ~~~
 

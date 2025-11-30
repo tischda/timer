@@ -39,7 +39,7 @@ func main() {
 	log.SetFlags(0)
 	cfg := initFlags()
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "Usage: "+name+" [OPTION] exec task")
+		fmt.Fprintln(os.Stderr, "Usage: "+name+` [OPTION] exec "task"`)
 		fmt.Fprintln(os.Stderr, "       "+name+` [OPTION] COMMAND timer-name
 
  COMMANDS:
@@ -60,12 +60,11 @@ OPTIONS:
   -v, --version
         print version and exit
 
-EXAMPLES:`)
-
-		fmt.Fprintln(os.Stderr, "\n  $ "+name+`
-    C:\>timer start t1
-    C:\>timer read t1
-    Elapsed time (t1): 5.9200225s.`)
+EXAMPLES:
+`)
+		fmt.Fprintln(os.Stderr, "  $ "+name+` start t1`)
+		fmt.Fprintln(os.Stderr, "  $ "+name+` read t1
+    Elapsed time (t1): 5.9200225s`)
 	}
 	flag.Parse()
 
