@@ -2,8 +2,8 @@
 
 ## [v1.4.0]
 
-* Fix deprecated syscall methods using Call() instead of SyscallN/Syscall9
-* Update build system
+* Fix deprecated syscall methods
+* Update build system and harmonize code
 
 ## [v1.3.0] - 23 November 2021
 
