@@ -20,7 +20,7 @@ Data is the number of nanoseconds elapsed since January 1, 1970 UTC.
 ## Install
 
 ~~~
-go install github.com/tischda/timer
+go install github.com/tischda/timer@latest
 ~~~
 
 ## Usage
