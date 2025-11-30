@@ -29,7 +29,7 @@ tasks:
       - go build {{.LDFLAGS}}
 
   watch:
-    desc: Watch for changes and rebuild (a first build is necessary create .syso files)
+    desc: Watch for changes and rebuild (a first build is necessary to create .syso files)
     cmds:
       - task: build
       - cmd /c start watchexec.exe --postpone --timings --exts go \""{{.FASTBUILD_CMD}}"\"
