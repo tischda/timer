@@ -75,7 +75,7 @@ func (RealRegistry) DeleteValue(path RegPath, valueName string) error {
 	if err != nil {
 		return err
 	}
-	defer syscall.RegCloseKey(handle)
+	defer syscall.RegCloseKey(handle)                                  //nolint:errcheck
 	return regDeleteValue(handle, syscall.StringToUTF16Ptr(valueName)) //nolint:errcheck
 }
 
@@ -110,7 +110,7 @@ func (RealRegistry) DeleteKey(path RegPath) error {
 	if err != nil {
 		return err
 	}
-	defer syscall.RegCloseKey(handle)
+	defer syscall.RegCloseKey(handle) //nolint:errcheck
 	return regDeleteKey(handle, syscall.StringToUTF16Ptr(child))
 }
 
@@ -137,7 +137,7 @@ func getNextEnumValue(path RegPath, index uint32) (string, error) {
 	if err != nil {
 		return "Cannot open registry path", err
 	}
-	defer syscall.RegCloseKey(handle)
+	defer syscall.RegCloseKey(handle) //nolint:errcheck
 
 	var nameLen uint32 = 16383
 	name := make([]uint16, nameLen)

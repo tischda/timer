@@ -21,7 +21,7 @@ func TestCreateOpenDeleteKey(t *testing.T) {
 	}
 
 	// list values
-	timers1, err := registry.EnumValues(PATH_TIMERS)
+	timers1, _ := registry.EnumValues(PATH_TIMERS)
 	if len(timers1) == 0 {
 		t.Error("No timers found")
 	}
@@ -40,7 +40,7 @@ func TestCreateOpenDeleteKey(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error deleting value t1, %s", err)
 	}
-	timers2, err := registry.EnumValues(PATH_TIMERS)
+	timers2, _ := registry.EnumValues(PATH_TIMERS)
 	if len(timers2) != len(timers1)-1 {
 		t.Error("Timers should have been deleted")
 	}

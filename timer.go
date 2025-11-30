@@ -91,7 +91,9 @@ func (t *Timer) exec(process string) {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 	}
-	cmd.Run()
+	if err := cmd.Run(); err != nil {
+		exitOnError(err)
+	}
 }
 
 // Reads the timestamp recorded in the registry for this timer and
